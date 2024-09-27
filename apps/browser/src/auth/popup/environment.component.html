@@ -113,6 +113,26 @@
             appInputVerbatim
           />
         </div>
+        <div class="box-content-row" appBoxRow>
+          <label for="cloudflareClientId">{{ "cloudflareClientId" | i18n }}</label>
+          <input
+            id="cloudflareClientId"
+            type="text"
+            name="CloudflareClientId"
+            [(ngModel)]="cloudflareClientId"
+            appInputVerbatim
+          />
+        </div>
+        <div class="box-content-row" appBoxRow>
+          <label for="cloudflareClientSecret">{{ "cloudflareClientSecret" | i18n }}</label>
+          <input
+            id="cloudflareClientSecret"
+            type="text"
+            name="CloudflareClientSecret"
+            [(ngModel)]="cloudflareClientSecret"
+            appInputVerbatim
+          />
+        </div>
       </div>
       <div id="customEnvironmentHelp" class="box-footer" [hidden]="!showCustom">
         {{ "customEnvironmentFooter" | i18n }}

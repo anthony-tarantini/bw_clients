@@ -43,7 +43,9 @@ export class BrowserEnvironmentService extends DefaultEnvironmentService {
       managedEnv.identity != urls.identity ||
       managedEnv.icons != urls.icons ||
       managedEnv.notifications != urls.notifications ||
-      managedEnv.events != urls.events
+      managedEnv.events != urls.events ||
+      managedEnv.cloudflareClientId != urls.cloudflareClientId ||
+      managedEnv.cloudflareClientSecret != urls.cloudflareClientSecret
     );
   }
 
@@ -75,6 +77,8 @@ export class BrowserEnvironmentService extends DefaultEnvironmentService {
       icons: env.icons,
       notifications: env.notifications,
       events: env.events,
+      cloudflareClientId: env.cloudflareClientId,
+      cloudflareClientSecret: env.cloudflareClientSecret,
     });
   }
 }

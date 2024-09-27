@@ -195,6 +195,8 @@ export class ApiService implements ApiServiceAbstraction {
       | SsoTokenRequest
       | WebAuthnLoginTokenRequest,
   ): Promise<IdentityTokenResponse | IdentityTwoFactorResponse | IdentityCaptchaResponse> {
+    const env = await firstValueFrom(this.environmentService.environment$);
+
     const headers = new Headers({
       "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
       Accept: "application/json",
@@ -209,8 +211,6 @@ export class ApiService implements ApiServiceAbstraction {
       request instanceof UserApiTokenRequest
         ? request.toIdentityToken()
         : request.toIdentityToken(this.platformUtilsService.getClientType());
-
-    const env = await firstValueFrom(this.environmentService.environment$);
 
     const response = await this.fetch(
       new Request(env.getIdentityUrl() + "/connect/token", {
@@ -1439,6 +1439,8 @@ export class ApiService implements ApiServiceAbstraction {
   }
 
   async postEventsCollect(request: EventRequest[], userId?: UserId): Promise<any> {
+    const env = await firstValueFrom(this.environmentService.environment$);
+
     const authHeader = await this.tokenService.getAccessToken(userId);
     const headers = new Headers({
       "Device-Type": this.deviceType,
@@ -1448,7 +1450,6 @@ export class ApiService implements ApiServiceAbstraction {
     if (this.customUserAgent != null) {
       headers.set("User-Agent", this.customUserAgent);
     }
-    const env = await firstValueFrom(this.environmentService.environment$);
     const response = await this.fetch(
       new Request(env.getEventsUrl() + "/collect", {
         cache: "no-store",
@@ -1580,10 +1581,14 @@ export class ApiService implements ApiServiceAbstraction {
   }
 
   async fetch(request: Request): Promise<Response> {
+    const env = await firstValueFrom(this.environmentService.environment$);
+
     if (request.method === "GET") {
       request.headers.set("Cache-Control", "no-store");
       request.headers.set("Pragma", "no-cache");
     }
+    request.headers.set("CF-Access-Client-Id", env.getCloudflareClientId());
+    request.headers.set("CF-Access-Client-Secret", env.getCloudflareClientSecret());
     request.headers.set("Bitwarden-Client-Name", this.platformUtilsService.getClientType());
     request.headers.set(
       "Bitwarden-Client-Version",
@@ -1732,6 +1737,7 @@ export class ApiService implements ApiServiceAbstraction {
   }
 
   protected async refreshAccessToken(): Promise<string> {
+    const env = await firstValueFrom(this.environmentService.environment$);
     const refreshToken = await this.tokenService.getRefreshToken();
     if (refreshToken == null || refreshToken === "") {
       throw new Error();
@@ -1744,8 +1750,6 @@ export class ApiService implements ApiServiceAbstraction {
     if (this.customUserAgent != null) {
       headers.set("User-Agent", this.customUserAgent);
     }
-
-    const env = await firstValueFrom(this.environmentService.environment$);
     const decodedToken = await this.tokenService.decodeAccessToken();
     const response = await this.fetch(
       new Request(env.getIdentityUrl() + "/connect/token", {

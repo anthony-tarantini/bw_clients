@@ -6,4 +6,6 @@ export type GroupPolicyEnvironment = {
   icons?: string;
   notifications?: string;
   events?: string;
+  cloudflareClientId?: string;
+  cloudflareClientSecret?: string;
 };

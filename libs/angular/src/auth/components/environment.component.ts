@@ -21,6 +21,8 @@ export class EnvironmentComponent {
   webVaultUrl: string;
   notificationsUrl: string;
   baseUrl: string;
+  cloudflareClientId: string;
+  cloudflareClientSecret: string;
   showCustom = false;
 
   constructor(
@@ -38,6 +40,8 @@ export class EnvironmentComponent {
         this.identityUrl = "";
         this.iconsUrl = "";
         this.notificationsUrl = "";
+        this.cloudflareClientId = "";
+        this.cloudflareClientSecret = "";
         return;
       }
 
@@ -48,6 +52,8 @@ export class EnvironmentComponent {
       this.identityUrl = urls.identity || "";
       this.iconsUrl = urls.icons || "";
       this.notificationsUrl = urls.notifications || "";
+      this.cloudflareClientId = urls.cloudflareClientId || "";
+      this.cloudflareClientSecret = urls.cloudflareClientSecret || "";
     });
   }
 
@@ -59,6 +65,8 @@ export class EnvironmentComponent {
       webVault: this.webVaultUrl,
       icons: this.iconsUrl,
       notifications: this.notificationsUrl,
+      cloudflareClientId: this.cloudflareClientId,
+      cloudflareClientSecret: this.cloudflareClientSecret,
     });
 
     this.toastService.showToast({

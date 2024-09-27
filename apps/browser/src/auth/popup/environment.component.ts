@@ -42,6 +42,8 @@ export class EnvironmentComponent extends BaseEnvironmentComponent implements On
     this.identityUrl = urls.identity;
     this.notificationsUrl = urls.notifications;
     this.iconsUrl = urls.icons;
+    this.cloudflareClientId = urls.cloudflareClientId;
+    this.cloudflareClientSecret = urls.cloudflareClientSecret;
   }
 
   saved() {

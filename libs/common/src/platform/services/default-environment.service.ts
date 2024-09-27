@@ -228,6 +228,8 @@ export class DefaultEnvironmentService implements EnvironmentService {
           icons: urls.icons,
           notifications: urls.notifications,
           events: urls.events,
+          cloudflareClientId: urls.cloudflareClientId,
+          cloudflareClientSecret: urls.cloudflareClientSecret,
           keyConnector: urls.keyConnector,
         },
       }));
@@ -319,7 +321,9 @@ function isEmpty(u?: Urls): boolean {
     u.identity == null &&
     u.icons == null &&
     u.notifications == null &&
-    u.events == null
+    u.events == null &&
+    (u.cloudflareClientId == null || u.cloudflareClientId == "") &&
+    (u.cloudflareClientSecret == null || u.cloudflareClientSecret == "")
   );
 }
 
@@ -350,6 +354,8 @@ abstract class UrlEnvironment implements Environment {
       notifications: this.urls.notifications,
       events: this.urls.events,
       keyConnector: this.urls.keyConnector,
+      cloudflareClientId: this.urls.cloudflareClientId,
+      cloudflareClientSecret: this.urls.cloudflareClientSecret,
       scim: this.urls.scim,
     };
   }
@@ -384,6 +390,14 @@ abstract class UrlEnvironment implements Environment {
 
   getNotificationsUrl() {
     return this.getUrl("notifications", "/notifications");
+  }
+
+  getCloudflareClientId() {
+    return this.urls.cloudflareClientId;
+  }
+
+  getCloudflareClientSecret() {
+    return this.urls.cloudflareClientSecret;
   }
 
   getScimUrl() {

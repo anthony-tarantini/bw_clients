@@ -29,6 +29,9 @@ export class CreateForwardingAddressRpc<
       method: "POST",
       headers: new Headers({
         ...token,
+        "CF-Access-Client-Id": "9c89baaea7afb1dc1cae51f5c510561e.access",
+        "CF-Access-Client-Secret":
+          "96fb5d4713aa28dbc7a4601c6845e1b9acbbe26c1425957b2e5ebc6a2aaca611",
         "Content-Type": "application/json",
         Accept: "application/json",
       }),

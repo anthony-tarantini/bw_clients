@@ -12,6 +12,8 @@ export type Urls = {
   events?: string;
   keyConnector?: string;
   scim?: string;
+  cloudflareClientId?: string;
+  cloudflareClientSecret?: string;
 };
 
 /**
@@ -86,6 +88,9 @@ export interface Environment {
 
   // Not sure why we provide this, evaluate if we can remove it.
   hasBaseUrl(): boolean;
+
+  getCloudflareClientId(): string | null;
+  getCloudflareClientSecret(): string | null;
 }
 
 /**

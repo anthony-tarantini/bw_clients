@@ -1386,6 +1386,12 @@
   "iconsUrl": {
     "message": "Icons server URL"
   },
+  "cloudflareClientId": {
+    "message": "Cloudflare ZeroTrust Client ID"
+  },
+  "cloudflareClientSecret": {
+    "message": "Cloudflare ZeroTrust Client Secret"
+  },
   "environmentSaved": {
     "message": "Environment URLs saved"
   },
